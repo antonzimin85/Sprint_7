@@ -13,10 +13,12 @@ class TestCourierLogin:
 
     @allure.title('Проверка логина курьера с валидными данными')
     @allure.description('Проверка успешного логина курьера с валидными данными')
-    def test_courier_login_successfully_logged_in(self):
-        response = requests.post(LOGIN_COURIER_ENDPOINT_URL, json=DataForCourierLogin.EXISTING_COURIER_CREDENTIALS)
+    def test_courier_login_successfully_logged_in(self, create_new_courier_and_created_courier_data, cleanup_created_courier):
+        response = requests.post(LOGIN_COURIER_ENDPOINT_URL, json=create_new_courier_and_created_courier_data)
         assert response.status_code == 200
         assert 'id' in response.json()
+
+        cleanup_created_courier.update(create_new_courier_and_created_courier_data)
 
     @allure.title('Проверка логина курьера без обязательных данных')
     @allure.description('Проверка, что нельзя авторизоваться без обязательных данных')
