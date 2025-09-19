@@ -15,7 +15,7 @@ def new_courier_data():
     return {'login': login, 'password': password, 'name': name}
 
 @fixture(scope='function')
-def create_new_courier_and_created_courier_data(new_courier_data):
+def create_new_courier_and_return_created_courier_data(new_courier_data):
 
     body = {'login': new_courier_data['login'], 'password': new_courier_data['password']}
     requests.post(CREATE_COURIER_ENDPOINT_URL, json=body)
